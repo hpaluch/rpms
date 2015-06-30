@@ -1,5 +1,5 @@
 %define name librhtv
-%define version 2.2.1
+%define version 2.0.3
 %define cvsrel 20040618
 %define rel %{cvsrel}.cvs
 %define namefull %{name}.so.%{version}
@@ -16,6 +16,7 @@ URL:       http://tvision.sf.net/
 Group:     System Environment/Libraries
 Source:    %{name}-%{cvsrel}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}
+Patch0:    tvision-2.0.3-fixes.diff
 
 %description 
 This is the shared library for programs using the RHTVision library.
@@ -58,6 +59,7 @@ that use the RHTVision library.
 rm -rf $RPM_BUILD_ROOT
 rm -rf $RPM_BUILD_DIR/tvision
 %setup -n tvision
+%patch0 -p1
 ./configure
 
 %build

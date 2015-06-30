@@ -1,0 +1,57 @@
+diff -r -u tvision/classes/fpbase.cc tvision-2.0.3-fixed/classes/fpbase.cc
+--- tvision/classes/fpbase.cc	2003-05-29 20:24:24.000000000 +0200
++++ tvision-2.0.3-fixed/classes/fpbase.cc	2015-06-30 16:22:58.000000000 +0200
+@@ -94,6 +94,7 @@
+  return buf;
+ }
+ 
++#undef CLY_DefineSpecialFileBuf
+ #ifdef CLY_DefineSpecialFileBuf
+ // gcc 3.1 specific
+ CLY_int_filebuf *CLY_int_filebuf::open(FILE *f, ios_base::openmode mode)
+diff -r -u tvision/classes/ipstream.cc tvision-2.0.3-fixed/classes/ipstream.cc
+--- tvision/classes/ipstream.cc	2015-06-30 16:13:19.000000000 +0200
++++ tvision-2.0.3-fixed/classes/ipstream.cc	2015-06-30 16:23:32.000000000 +0200
+@@ -28,6 +28,8 @@
+ #define Uses_PubStreamBuf
+ #include <tv.h>
+ 
++#include <cstdio>
++
+ ipstream::ipstream( CLY_streambuf *sb )
+ {
+     objs = new TPReadObjects();
+diff -r -u tvision/classes/linux/linuxdis.cc tvision-2.0.3-fixed/classes/linux/linuxdis.cc
+--- tvision/classes/linux/linuxdis.cc	2015-06-30 16:13:19.000000000 +0200
++++ tvision-2.0.3-fixed/classes/linux/linuxdis.cc	2015-06-30 16:23:52.000000000 +0200
+@@ -320,6 +320,7 @@
+  but can be added.
+ *****************************************************************************/
+ 
++#undef h386LowLevel
+ #ifdef h386LowLevel
+ #include <asm/io.h>
+ 
+diff -r -u tvision/classes/linux/linuxscr.cc tvision-2.0.3-fixed/classes/linux/linuxscr.cc
+--- tvision/classes/linux/linuxscr.cc	2015-06-30 16:13:19.000000000 +0200
++++ tvision-2.0.3-fixed/classes/linux/linuxscr.cc	2015-06-30 16:24:12.000000000 +0200
+@@ -122,6 +122,7 @@
+ #include <tv/linux/mouse.h>
+ #include <tv/linux/log.h>
+ 
++#undef h386LowLevel
+ #ifdef h386LowLevel
+  #include <asm/io.h>
+ #endif
+diff -r -u tvision/include/tv/textdev.h tvision-2.0.3-fixed/include/tv/textdev.h
+--- tvision/include/tv/textdev.h	2015-06-30 16:13:24.000000000 +0200
++++ tvision-2.0.3-fixed/include/tv/textdev.h	2015-06-30 16:25:00.000000000 +0200
+@@ -16,6 +16,8 @@
+ #if defined( Uses_TTextDevice ) && !defined( __TTextDevice )
+ #define __TTextDevice
+ 
++#include <cstdio>
++
+ class TRect;
+ class TScrollBar;
+ 
