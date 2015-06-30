@@ -1,6 +1,7 @@
 %define name setedit
 %define ver 0.5.7
-%define rel 1
+%define cvsrel 20040618
+%define rel %{cvsrel}.cvs
 
 Summary:   A user friendly editor for programmers.
 Name:      %{name}
@@ -10,12 +11,13 @@ License: GPL
 Packager:  Michel Catudal <bbcat@users.sf.net>
 Vendor:    Salvador Eduardo Tropea <set@users.sf.net>
 Group:     Applications/Editors
-Source:    %{name}-%{ver}.tar.gz
+Source:    %{name}-%{cvsrel}.tar.gz
 URL:       http://setedit.sf.net/
 BuildRoot: %{_tmppath}/%{name}-%{version}-build
 Docdir:    /usr/doc
 Prereq:    /sbin/install-info
 BuildRequires: librhtv-devel, gettext, texinfo, groff
+Patch0:   pcre-fix.diff 
 
 %description 
 Setedit is a text editor specially designed for programmers. It has a nice
@@ -31,6 +33,7 @@ rm -rf $RPM_BUILD_ROOT
 rm -rf $RPM_BUILD_DIR/%{name}
 # Ooops...
 %setup -n setedit
+%patch0 -p1
 
 %build
 rm -f Makefile

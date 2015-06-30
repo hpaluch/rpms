@@ -1,0 +1,11 @@
+--- setedit/sdg/include/txhgen.h.orig	2015-06-30 14:10:48.000000000 +0200
++++ setedit/sdg/include/txhgen.h	2015-06-30 14:09:09.000000000 +0200
+@@ -1,5 +1,8 @@
+ /* Copyright (C) 1996,1997,1998,1999,2000 by Salvador E. Tropea (SET),
+    see copyrigh file for details */
++
++#include <pcre.h>
++
+ typedef char *(*TXHGetNextFileType)(int &l, int &MustBeDeleted, char *FileName);
+ extern TXHGetNextFileType TXHGetNextFile;
+ extern void (*TXHPrintMessage)(const char *s);
