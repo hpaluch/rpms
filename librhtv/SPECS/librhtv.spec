@@ -1,6 +1,7 @@
 %define name librhtv
 %define version 2.2.1
-%define rel 3
+%define cvsrel 20040618
+%define rel %{cvsrel}.cvs
 %define namefull %{name}.so.%{version}
 %define incname rhtvision
 
@@ -13,7 +14,7 @@ Packager:  Michel Catudal <bbcat@users.sf.net>
 Vendor:    Salvador Eduardo Tropea <set@users.sf.net>
 URL:       http://tvision.sf.net/
 Group:     System Environment/Libraries
-Source:    %{name}-%{version}.tar.gz
+Source:    %{name}-%{cvsrel}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}
 
 %description 
