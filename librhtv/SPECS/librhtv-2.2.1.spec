@@ -8,12 +8,12 @@ Summary:   An intuitive TUI interface for console applications.
 Name:      %{name}
 Version:   %{version}
 Release:   %{rel}
-Copyright: GPL
+License: GPL
 Packager:  Michel Catudal <bbcat@users.sf.net>
 Vendor:    Salvador Eduardo Tropea <set@users.sf.net>
 URL:       http://tvision.sf.net/
 Group:     System Environment/Libraries
-Source:    %{name}-%{version}.tar.bz2
+Source:    %{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}
 
 %description 
@@ -52,13 +52,11 @@ applications using the RHTVision library or you would like to compile programs
 that use the RHTVision library.
 
 %prep
-%setup -q
+# oops...
+%setup -q -n tvision
 rm -rf $RPM_BUILD_ROOT
-rm -rf $RPM_BUILD_DIR/%{name}-%{version}
-rm -f $RPM_BUILD_DIR/tvision
-ln -s $RPM_BUILD_DIR/%{name}-%{version} $RPM_BUILD_DIR/tvision
-
-%setup
+rm -rf $RPM_BUILD_DIR/tvision
+%setup -n tvision
 ./configure
 
 %build
@@ -83,13 +81,16 @@ rm -f $RPM_BUILD_ROOT/usr/lib/librhtv.so
 rm -f $RPM_BUILD_ROOT/usr/lib/librhtv.so.2
 rm -f $RPM_BUILD_ROOT/usr/lib/librhtv.so.%{version}
 cd $RPM_BUILD_ROOT/usr/lib; ln -s librhtv.so.%{version} librhtv.so
-cd $RPM_BUILD_DIR/%{name}-%{version}
+cd $RPM_BUILD_DIR/tvision
 install -m 0755 makes/librhtv.so.%{version} $RPM_BUILD_ROOT/usr/lib
 strip --strip-debug $RPM_BUILD_ROOT/usr/lib/librhtv.so.%{version}
 install -d -m 0755 $RPM_BUILD_ROOT/usr/lib
 install -m 0644 intl/dummy/libtvfintl.a $RPM_BUILD_ROOT/usr/lib/libtvfintl.a
 mkdir -p $RPM_BUILD_ROOT/usr/share/doc/packages/librhtv
 install -m 0644 doc/*.txt doc/*.html  $RPM_BUILD_ROOT/usr/share/doc/packages/librhtv
+# do not forget rhtv-config
+install -d -m 0755 $RPM_BUILD_ROOT/usr/bin
+install -m 0755 rhtv-config $RPM_BUILD_ROOT/usr/bin
 
 %clean
 #rm -rf $RPM_BUILD_ROOT
@@ -114,6 +115,7 @@ install -m 0644 doc/*.txt doc/*.html  $RPM_BUILD_ROOT/usr/share/doc/packages/lib
 /usr/lib/*.a
 /usr/lib/lib*.so
 /usr/share/doc/packages/librhtv/*
+/usr/bin/rhtv-config
 
 
 %changelog -n librhtv
