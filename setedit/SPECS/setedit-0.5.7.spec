@@ -6,15 +6,16 @@ Summary:   A user friendly editor for programmers.
 Name:      %{name}
 Version:   %{ver}
 Release:   %{rel}
-Copyright: GPL
+License: GPL
 Packager:  Michel Catudal <bbcat@users.sf.net>
 Vendor:    Salvador Eduardo Tropea <set@users.sf.net>
 Group:     Applications/Editors
-Source:    %{name}-%{ver}.tar.bz2
+Source:    %{name}-%{ver}.tar.gz
 URL:       http://setedit.sf.net/
 BuildRoot: %{_tmppath}/%{name}-%{version}-build
 Docdir:    /usr/doc
 Prereq:    /sbin/install-info
+BuildRequires: librhtv-devel, gettext, texinfo, groff
 
 %description 
 Setedit is a text editor specially designed for programmers. It has a nice
@@ -27,14 +28,15 @@ keyboard shortcuts and menus.
 
 %prep
 rm -rf $RPM_BUILD_ROOT
-rm -rf $RPM_BUILD_DIR/%{name}-%{ver}
-%setup
+rm -rf $RPM_BUILD_DIR/%{name}
+# Ooops...
+%setup -n setedit
 
 %build
 rm -f Makefile
 perl config.pl --libset
-touch $RPM_BUILD_DIR/%{name}-%{ver}/debugfiles.list
-touch $RPM_BUILD_DIR/%{name}-%{ver}/debugsources.list
+touch $RPM_BUILD_DIR/%{name}/debugfiles.list
+touch $RPM_BUILD_DIR/%{name}/debugsources.list
 make
 
 %install
