@@ -33,7 +33,7 @@ also need to install librhtv-devel.
 %package devel
 Summary:   RHTVision library development.
 Group:     Development/Libraries
-Requires:  %{name} = %{PACKAGE_VERSION}
+Requires:  %{name} = %{version}
 
 %description devel
 Libraries and include files you can use for developing applications using
