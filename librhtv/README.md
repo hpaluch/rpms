@@ -34,6 +34,6 @@ Invoke build:
 
 As root Install binary RPMS:
 
-	rpm -ivh path_ro_rpmbuild/RPMS/i586/librhtv*.rpm
+	rpm -ivh path_ro_rpmbuild/RPMS/i386/librhtv*.rpm
 
 
