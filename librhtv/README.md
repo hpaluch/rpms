@@ -22,6 +22,10 @@ As non privileged user prepare development directories for RPMs:
 
 Copy contens of this directory to your ~/rpmbuild/ dir
 
+Fetch Turbo Vision sources:
+
+	~/rpmbuild/SOURCES/fetch_sources.sh
+
 
 Invoke build:
 
