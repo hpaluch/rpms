@@ -34,7 +34,7 @@ rm -rf $RPM_BUILD_DIR/%{name}
 
 %build
 rm -f Makefile
-perl config.pl --libset
+perl config.pl --libset --tv-include=/usr/include/rhtvision
 touch $RPM_BUILD_DIR/%{name}/debugfiles.list
 touch $RPM_BUILD_DIR/%{name}/debugsources.list
 make
