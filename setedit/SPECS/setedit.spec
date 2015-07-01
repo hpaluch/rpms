@@ -16,8 +16,8 @@ URL:       http://setedit.sf.net/
 BuildRoot: %{_tmppath}/%{name}-%{version}-build
 Docdir:    /usr/doc
 Prereq:    /sbin/install-info
-BuildRequires: librhtv-devel, gettext, texinfo, groff
-Patch0:   pcre-fix.diff 
+BuildRequires: librhtv-devel = 2.0.3, gettext, texinfo, groff, aalib-devel
+Patch0:   setedit-fixes.diff 
 
 %description 
 Setedit is a text editor specially designed for programmers. It has a nice
