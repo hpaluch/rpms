@@ -1,6 +1,6 @@
-diff -r -u rhide-1.5.9.0/idecomp.cc rhide-1.5.9.0-new/idecomp.cc
+diff -u -r rhide-1.5.9.0/idecomp.cc rhide-1.5.9.0-new/idecomp.cc
 --- rhide-1.5.9.0/idecomp.cc	2003-03-21 13:53:10.000000000 +0100
-+++ rhide-1.5.9.0-new/idecomp.cc	2015-06-30 14:34:03.000000000 +0200
++++ rhide-1.5.9.0-new/idecomp.cc	2015-07-01 08:57:41.000000000 +0200
 @@ -950,7 +950,7 @@
       */
      for (tok = strtok(dir, " "); tok; tok = strtok(NULL, " "))
@@ -10,9 +10,9 @@ diff -r -u rhide-1.5.9.0/idecomp.cc rhide-1.5.9.0-new/idecomp.cc
        if (res == depfile)
          break;
      }
-diff -r -u rhide-1.5.9.0/idemak.cc rhide-1.5.9.0-new/idemak.cc
+diff -u -r rhide-1.5.9.0/idemak.cc rhide-1.5.9.0-new/idemak.cc
 --- rhide-1.5.9.0/idemak.cc	2004-06-18 15:14:23.000000000 +0200
-+++ rhide-1.5.9.0-new/idemak.cc	2015-06-30 14:34:28.000000000 +0200
++++ rhide-1.5.9.0-new/idemak.cc	2015-07-01 08:58:04.000000000 +0200
 @@ -140,7 +140,7 @@
  
    while (1)
@@ -22,14 +22,10 @@ diff -r -u rhide-1.5.9.0/idemak.cc rhide-1.5.9.0-new/idemak.cc
      if (lf)
        *lf = 0;
      len = strlen(s);
-Only in rhide-1.5.9.0-new/libgdb: echo_ver.exe
-Only in rhide-1.5.9.0-new/libgdb: gdb_ver.txt
 Only in rhide-1.5.9.0-new/libgdb: libgdbrh.a
-Only in rhide-1.5.9.0-new/libgdb: libgdbrh.c
-Only in rhide-1.5.9.0-new/libgdb: libgdbrh.h
-diff -r -u rhide-1.5.9.0/libide/ideclass.cc rhide-1.5.9.0-new/libide/ideclass.cc
+diff -u -r rhide-1.5.9.0/libide/ideclass.cc rhide-1.5.9.0-new/libide/ideclass.cc
 --- rhide-1.5.9.0/libide/ideclass.cc	2001-12-07 16:41:12.000000000 +0100
-+++ rhide-1.5.9.0-new/libide/ideclass.cc	2015-06-30 14:30:21.000000000 +0200
++++ rhide-1.5.9.0-new/libide/ideclass.cc	2015-07-01 08:56:17.000000000 +0200
 @@ -33,7 +33,7 @@
  {
    if (!_ext)
@@ -39,20 +35,9 @@ diff -r -u rhide-1.5.9.0/libide/ideclass.cc rhide-1.5.9.0-new/libide/ideclass.cc
  
    if (!ext)
    {
-diff -r -u rhide-1.5.9.0/libide/tflagent.cc rhide-1.5.9.0-new/libide/tflagent.cc
---- rhide-1.5.9.0/libide/tflagent.cc	2001-01-08 22:55:33.000000000 +0100
-+++ rhide-1.5.9.0-new/libide/tflagent.cc	2015-06-30 14:31:17.000000000 +0200
-@@ -3,6 +3,7 @@
- #define Uses_TDialog
- #define Uses_TRect
- #define Uses_TValidator
-+#define Uses_TRangeValidator
- #define Uses_TInputLine
- #define Uses_TProgram
- #define Uses_TApplication
-diff -r -u rhide-1.5.9.0/libide/tfname.cc rhide-1.5.9.0-new/libide/tfname.cc
+diff -u -r rhide-1.5.9.0/libide/tfname.cc rhide-1.5.9.0-new/libide/tfname.cc
 --- rhide-1.5.9.0/libide/tfname.cc	2001-01-08 22:55:33.000000000 +0100
-+++ rhide-1.5.9.0-new/libide/tfname.cc	2015-06-30 14:31:40.000000000 +0200
++++ rhide-1.5.9.0-new/libide/tfname.cc	2015-07-01 08:57:06.000000000 +0200
 @@ -79,7 +79,7 @@
    FileEntry fe;
  
@@ -62,67 +47,31 @@ diff -r -u rhide-1.5.9.0/libide/tfname.cc rhide-1.5.9.0-new/libide/tfname.cc
    if (!fe.slash)
      fe.slash = fe.name;
    else
-diff -r -u rhide-1.5.9.0/librhuti/io.cc rhide-1.5.9.0-new/librhuti/io.cc
---- rhide-1.5.9.0/librhuti/io.cc	2001-09-01 23:56:27.000000000 +0200
-+++ rhide-1.5.9.0-new/librhuti/io.cc	2015-06-30 14:43:11.000000000 +0200
-@@ -16,6 +16,11 @@
- static int h_out, h_outbak;
- static int h_err, h_errbak;
+diff -u -r rhide-1.5.9.0/rhgdb/gdbsynt.cc rhide-1.5.9.0-new/rhgdb/gdbsynt.cc
+--- rhide-1.5.9.0/rhgdb/gdbsynt.cc	2001-12-02 14:35:33.000000000 +0100
++++ rhide-1.5.9.0-new/rhgdb/gdbsynt.cc	2015-07-01 09:00:05.000000000 +0200
+@@ -53,7 +53,7 @@
+ //                              *TCEditor::SHLSOStack,TCEditor::SHLGenList,
+                               TCEditor::SHLGenList, TCEditor::SHLCant) != 0)
+   {
+-    syntax_file = "__syntax__";
++    syntax_file = (char*)"__syntax__";
+     FILE *f = fopen(syntax_file, "w+t");
  
-+/* hack for setedit */
-+char *unique_name(const char *before, char *retval){
-+     return unique_name( (char*) before,retval);
-+}
-+
- /* returns a malloced unique tempname in $TMPDIR */
- char *
- unique_name(char *before, char *retval)
-diff -r -u rhide-1.5.9.0/libtvuti/bigmessa.cc rhide-1.5.9.0-new/libtvuti/bigmessa.cc
---- rhide-1.5.9.0/libtvuti/bigmessa.cc	2001-10-17 21:11:58.000000000 +0200
-+++ rhide-1.5.9.0-new/libtvuti/bigmessa.cc	2015-06-30 14:32:47.000000000 +0200
-@@ -136,7 +136,7 @@
-   r = TRect(4, 3, dialog->size.x - 3, 4);
- //    r = TRect( 4 + strlen(aLabel), 2, dialog->size.x - 3, 3 );
-   control = new TInputLine(r, limit);
--  ((TInputLine *) control)->SetValidator(validator);
-+  ((TInputLine *) control)->setValidator(validator);
-   dialog->insert(control);
- 
-   r = TRect(2, 2, 3 + strlen(aLabel), 3);
-diff -r -u rhide-1.5.9.0/libtvuti/tintinpu.cc rhide-1.5.9.0-new/libtvuti/tintinpu.cc
---- rhide-1.5.9.0/libtvuti/tintinpu.cc	2001-01-08 22:55:35.000000000 +0100
-+++ rhide-1.5.9.0-new/libtvuti/tintinpu.cc	2015-06-30 14:33:16.000000000 +0200
-@@ -14,9 +14,9 @@
- TEnterInputLine(bounds, aMaxlen)
- {
-   if (_unsigned)
--    SetValidator(new TRangeValidator(0, UINT_MAX));
-+    setValidator(new TRangeValidator(0, UINT_MAX));
-   else
--    SetValidator(new TRangeValidator(INT_MIN, INT_MAX));
-+    setValidator(new TRangeValidator(INT_MIN, INT_MAX));
- }
- 
- void
-
---- rhide-1.5.9.0/idemain.cc.orig	2015-06-30 15:08:31.000000000 +0200
-+++ rhide-1.5.9.0/idemain.cc	2015-06-30 15:09:11.000000000 +0200
-@@ -37,6 +37,7 @@
- #define Uses_TFileDialog
- #define Uses_TFileInputLine
- #define Uses_TValidator
-+#define Uses_TRangeValidator
- #define Uses_TDirList
- #define Uses_TButton
- #define Uses_TEventQueue
---- rhide-1.5.9.0/idesynta.cc.orig	2015-06-30 15:09:51.000000000 +0200
-+++ rhide-1.5.9.0/idesynta.cc	2015-06-30 15:10:17.000000000 +0200
-@@ -668,7 +668,7 @@
-   r1.b.y = r1.a.y + 1;
-   r1.b.x = r1.a.x + 7;
-   inp = new TIntInputLine(r1, 4);
--  inp->SetValidator(new TRangeValidator(1, 1000));
-+  inp->setValidator(new TRangeValidator(1, 1000));
-   r = r1;
-   r1.move(0, -1);
-   tmp = _("Fu~z~zy value");
+     fprintf(f, "\n\
+Only in rhide-1.5.9.0-new/rhgdb: gdbsynt.o
+Only in rhide-1.5.9.0-new/rhgdb: main.o
+Only in rhide-1.5.9.0-new/rhgdb: options.o
+Only in rhide-1.5.9.0-new/rhgdb: rhgdb.exe
+diff -u -r rhide-1.5.9.0/rhgdb/rhgdb.mak rhide-1.5.9.0-new/rhgdb/rhgdb.mak
+--- rhide-1.5.9.0/rhgdb/rhgdb.mak	2004-06-19 17:49:36.000000000 +0200
++++ rhide-1.5.9.0-new/rhgdb/rhgdb.mak	2015-07-01 09:04:16.000000000 +0200
+@@ -47,7 +47,7 @@
+ 	$(SETOBJ) $(PCRE_OBJ)
+ C_DEBUG_FLAGS=-g
+ C_OPT_FLAGS=-O2
+-C_WARN_FLAGS=-Wall -Werror
++C_WARN_FLAGS=-Wall
+ C_C_LANG_FLAGS=
+ C_CXX_LANG_FLAGS=
+ C_P_LANG_FLAGS=

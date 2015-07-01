@@ -13,7 +13,7 @@ Packager: Robert Hoehne <robert.hoehne@gmx.net>
 Vendor: Robert Hoehne <robert.hoehne@gmx.net>
 BuildRoot: %{_tmppath}/%{name}-%{version}
 Prefix: /usr
-BuildRequires: librhtv-devel, libXmu-devel
+BuildRequires: librhtv-devel = 2.0.3, libXmu-devel
 Patch0: rhide-fixes.diff
 
 %description

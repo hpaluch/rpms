@@ -1,17 +1,33 @@
 RHIDE RPM specs
 ===============
 
-Warning: They not build (yet)...
+Warning: The build fails o segfault when make invokes ./gpr2mak.exe
 
-Why?
+Build instructions
+==================
 
-* BLOCKER: rhide use sources from 'setedit' - but what's worse - it clones 'librhuti' 
-  library and changes it's functions. Thus it is possible to compile
-  setedit or rhide but not both
-* rhide requires gdb-6.1.1 sources in parent directory (easily fixed)
-* rhide requires setedit sources in parent directory (easily fixed - for example  by build of setedit.spec)
-* there are another small bugs that prevents rhide compilation - fixed
-  by SOURCES/rhide-fixes.diff
+* Build and install Turbo Vision 2.0.3 from ../librhtv/
+
+* Build setedit from ../setedit - note you don't need to install RPM
+  - rhide uses ~/rpmbuild/BUILD/setedit for building 	
+
+* Get and extract gdb 6.1.1 into ~/rpmbuild/BUILD directory:
+
+	cd ~/rpmbuild/BUILD
+	wget ftp://ftp.gnu.org/gnu/gdb/gdb-6.1.1a.tar.bz2
+	tar xfz gdb-6.1.1a.tar.bz2
+
+* Build rhide:
+
+	rpmbuild -ba ~/rpmbuild/SPECS/rhide.spec
+
+Note: it currently segfaults on:
+
+	+ make RHIDESRC=/home/hpaluch/rpmbuild/BUILD/rhide-1.5.9.0 install prefix=/home/hpaluch/rpmbuild/BUILDROOT/rhide-1.5.9.0-1.i386/usr
+	/bin/sh: line 1: 13425 Segmentation fault      (core dumped) ./gpr2mak.exe -d -r- -o - gpr2mak.gpr > __tmp__.mak
+	make: *** [gpr2mak.mak] Error 139
+	error: Bad exit status from /var/tmp/rpm-tmp.UsIITE (%install)
+
 
 Rhide homepage is no http://www.rhide.com/ - this build attempt to use
 recommended version:
