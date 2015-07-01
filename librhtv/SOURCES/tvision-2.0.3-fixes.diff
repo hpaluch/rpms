@@ -1,14 +1,3 @@
-diff -r -u tvision/classes/fpbase.cc tvision-2.0.3-fixed/classes/fpbase.cc
---- tvision/classes/fpbase.cc	2003-05-29 20:24:24.000000000 +0200
-+++ tvision-2.0.3-fixed/classes/fpbase.cc	2015-06-30 16:22:58.000000000 +0200
-@@ -94,6 +94,7 @@
-  return buf;
- }
- 
-+#undef CLY_DefineSpecialFileBuf
- #ifdef CLY_DefineSpecialFileBuf
- // gcc 3.1 specific
- CLY_int_filebuf *CLY_int_filebuf::open(FILE *f, ios_base::openmode mode)
 diff -r -u tvision/classes/ipstream.cc tvision-2.0.3-fixed/classes/ipstream.cc
 --- tvision/classes/ipstream.cc	2015-06-30 16:13:19.000000000 +0200
 +++ tvision-2.0.3-fixed/classes/ipstream.cc	2015-06-30 16:23:32.000000000 +0200
@@ -55,3 +44,66 @@ diff -r -u tvision/include/tv/textdev.h tvision-2.0.3-fixed/include/tv/textdev.h
  class TRect;
  class TScrollBar;
  
+--- tvision/include/compatlayer.h.orig	2015-06-30 16:13:23.000000000 +0200
++++ tvision/include/compatlayer.h	2015-07-01 08:37:46.000000000 +0200
+@@ -115,7 +115,9 @@
+ #endif
+ 
+ #undef  FSTREAM_HEADER
+-#define FSTREAM_HEADER  <fstream.h>
++#define FSTREAM_HEADER   <fstream.h>
++#undef  STRSTREAM_HEADER
++#define STRSTREAM_HEADER <strstream.h>
+ #undef  IOMANIP_HEADER
+ #define IOMANIP_HEADER  <iomanip.h>
+ #undef  IOSTREAM_HEADER
+@@ -322,15 +324,26 @@
+     library. GCC implemented it in version 3.0. BC++ implemented some
+     stuff in versions like BC++ 5.5. So that's a real mess. */
+  #if __GNUC__>=3
+-  // gcc 3.1 needs a special filebuf
+-  #define CLY_filebuf       std::filebuf
+-  #if __GNUC_MINOR__<1
++  #if __GNUC__>=4 || __GNUC_MINOR__>=4
++   // gcc>=3.4. It have __gnu_cxx::stdio_filebuf class.
++   #define CLY_filebuf       __gnu_cxx::stdio_filebuf<char>
+    #define CLY_int_filebuf   CLY_filebuf
+    #define CLY_NewFBFromFD(buf,f) buf=new CLY_int_filebuf(fdopen(f,"rb+"),ios::in|ios::out|ios::binary)
++   #undef  FSTREAM_HEADER
++   #define FSTREAM_HEADER  <ext/stdio_filebuf.h>
+   #else
+-   #undef  CLY_DefineSpecialFileBuf
+-   #define CLY_DefineSpecialFileBuf 1
+-   #define CLY_NewFBFromFD(buf,f) buf=new CLY_int_filebuf(f,ios::in|ios::out|ios::binary)
++   // gcc 3.1 needs a special filebuf
++   #define CLY_filebuf       std::filebuf
++   #if __GNUC_MINOR__<1
++    #define CLY_int_filebuf   CLY_filebuf
++    #define CLY_NewFBFromFD(buf,f) buf=new CLY_int_filebuf(fdopen(f,"rb+"),ios::in|ios::out|ios::binary)
++   #else
++    #undef  CLY_DefineSpecialFileBuf
++    #define CLY_DefineSpecialFileBuf 1
++    #define CLY_NewFBFromFD(buf,f) buf=new CLY_int_filebuf(f,ios::in|ios::out|ios::binary)
++   #endif
++   #undef  FSTREAM_HEADER
++   #define FSTREAM_HEADER  <fstream>
+   #endif
+   #define CLY_streambuf      std::streambuf
+   #define CLY_ISOCpp98 1
+@@ -1936,7 +1949,7 @@
+ 
+ #if defined(Include_strstream) && !defined(Included_strstream)
+  #define Included_strstream 1
+- #include <strstream.h>
++ #include STRSTREAM_HEADER
+ #endif
+ 
+ #if defined(Include_strstrea) && !defined(Included_strstrea)
+@@ -1952,6 +1965,7 @@
+ #if defined(Uses_fstream) && !defined(Included_fstream)
+  #define Included_fstream 1
+  #include FSTREAM_HEADER
++ #include <ext/stdio_filebuf.h>
+ #endif
+ 
+ #if defined(Uses_iomanip) && !defined(Included_iomanip)
